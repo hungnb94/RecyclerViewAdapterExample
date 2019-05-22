@@ -20,6 +20,15 @@ class MainActivity : AppCompatActivity(), AdapterListener {
         createList()
         normalAdapter.setAdapterListener(this)
         rcvListItem.adapter = normalAdapter
+
+        fabAdd.setOnClickListener {
+            val items = arrayListOf(createRandomObject(), createRandomObject(), createRandomObject())
+            val start = 3
+            items.forEachIndexed { index, image ->
+                listData.add(start + index, image)
+            }
+            normalAdapter.notifyItemRangeInserted(start, items.size)
+        }
     }
 
     override fun onChangeText(position: Int) {
@@ -39,9 +48,13 @@ class MainActivity : AppCompatActivity(), AdapterListener {
         listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
         listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
         listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
+//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
+//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
+//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
+//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
+    }
+
+    private fun createRandomObject():RandomImage {
+        return RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)])
     }
 }
