@@ -22,13 +22,42 @@ class MainActivity : AppCompatActivity(), AdapterListener {
         rcvListItem.adapter = normalAdapter
 
         fabAdd.setOnClickListener {
-            val items = arrayListOf(createRandomObject(), createRandomObject(), createRandomObject())
-            val start = 3
-            items.forEachIndexed { index, image ->
-                listData.add(start + index, image)
-            }
-            normalAdapter.notifyItemRangeInserted(start, items.size)
+//            notifyRangeInserted()
+//            notifyRangeChanged()
+//            notifyRangeRemoved()
         }
+    }
+
+    private fun notifyRangeRemoved() {
+        val start = 1
+        val count = 3
+        for (pos in start + count - 1 downTo start) {
+            listData.removeAt(pos)
+//            normalAdapter.notifyItemRemoved(pos)
+        }
+        normalAdapter.notifyItemRangeRemoved(start, count)
+    }
+
+    private fun notifyRangeChanged() {
+        val start = 1
+        val count = 3
+        for (pos in start until start + count) {
+            val data = listData[pos]
+            data.textData = UUID.randomUUID().toString()
+        }
+        normalAdapter.notifyItemRangeChanged(start, count)
+//        for (pos in start until start + count) {
+//            normalAdapter.notifyItemChanged(pos)
+//        }
+    }
+
+    private fun notifyRangeInserted() {
+        val items = arrayListOf(createRandomObject(), createRandomObject(), createRandomObject())
+        val start = 3
+        items.forEachIndexed { index, image ->
+            listData.add(start + index, image)
+        }
+        normalAdapter.notifyItemRangeInserted(start, items.size)
     }
 
     override fun onChangeText(position: Int) {
@@ -44,14 +73,13 @@ class MainActivity : AppCompatActivity(), AdapterListener {
     }
 
     private fun createList() {
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
-//        listData.add(RandomImage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), images[random.nextInt(images.size)]))
+        listData.add(createRandomObject())
+        listData.add(createRandomObject())
+        listData.add(createRandomObject())
+        listData.add(createRandomObject())
+        listData.add(createRandomObject())
+        listData.add(createRandomObject())
+        listData.add(createRandomObject())
     }
 
     private fun createRandomObject():RandomImage {
